@@ -3,12 +3,12 @@
   digital_ocean:
     state: present
     command: droplet
-    name: "{{ do_droplet_name|default(test_sled) }}"
+    # name: "{{ do_droplet_name|default(test_sled) }}" --> remove for testing
     unique_name: "{{ do_droplet_idempotency }}"
     size_id: "{{ do_droplet_size }}"
     image_id: "{{ do_droplet_image }}"
     region_id: "{{ do_droplet_region }}"
-    ssh_key_name: "{{ do_ssh_name }}"
+    ssh_key_name: "{{ do_ssh_key_name }}"
     api_token: "{{ do_api_token }}"
     private_networking: "{{ do_droplet_private_net }}"
   register: do
