@@ -19,9 +19,9 @@
 
 - name: add host to in-memory inventory
   add_host:
-    name: {{ do.droplet.ip_address }}
-    groups: {{ do_droplet_region }}
-    ansible_ssh_user: {{ do_root_user|default(root) }}
+    name: "{{ do.droplet.ip_address }}"
+    groups: "{{ do_droplet_region }}"
+    ansible_ssh_user: "{{ do_root_user|default(root) }}"
 
 # The following will install Python 2.7 on an ubuntu 16.04 droplet in preparation for future plays.
 - name: install python 2.7 on ubuntu 16.04 (Xenial)
