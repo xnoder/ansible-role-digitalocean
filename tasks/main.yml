@@ -3,7 +3,7 @@
   digital_ocean:
     state: present
     command: droplet
-    name: "{{ do_droplet_name|default(false) }}"
+    name: "{{ do_droplet_name|default(test_sled) }}"
     unique_name: "{{ do_droplet_idempotency }}"
     size_id: "{{ do_droplet_size }}"
     image_id: "{{ do_droplet_image }}"
@@ -30,7 +30,7 @@
   with_items:
     - apt install -qq -y python2.7
     - ln -s /usr/bin/python2.7 /usr/bin/python
-  delegate_to: {{ do.droplet.ip_address }}
+  delegate_to: "{{ do.droplet.ip_address }}"
 
 - include: destroy.yml
   tags: [destroy]
