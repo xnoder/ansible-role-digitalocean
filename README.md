@@ -1,6 +1,8 @@
 Digital Ocean
 =============
 
+[![Build Status](https://travis-ci.org/xnoder/ansible-role-digitalocean.svg?branch=master)](https://travis-ci.org/xnoder/ansible-role-digitalocean)
+
 Create a new droplet on Digital Ocean. If your droplet uses Ubuntu 16.04, it will also install and symlink Python 2.7 for you so
 that the box has the requisite software installed to run further plays against the droplet.
 
