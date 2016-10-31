@@ -23,6 +23,9 @@
     groups: "{{ do_droplet_region }}"
     ansible_ssh_user: "{{ do_root_user|default(root) }}"
 
+- name: wait for host to become available
+  local_action: wait_for host={{ do.droplet.ip_address }} port=22 delay=60 timeout=300 state=started
+
 # The following will install Python 2.7 on an ubuntu 16.04 droplet in preparation for future plays.
 - name: install python 2.7 on ubuntu 16.04 (Xenial)
   raw: "{{ item }}"
