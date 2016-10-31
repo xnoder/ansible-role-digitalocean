@@ -1,0 +1,10 @@
+---
+# defaults file for digitalocean
+do_droplet_name: "{{ doname }}"
+do_droplet_idempotency: true
+do_droplet_size: 512mb
+do_droplet_image: ubuntu-16-04-x64
+do_droplet_region: fra1
+do_ssh_key_name: Primary
+do_api_token: 0
+do_droplet_private_net: no

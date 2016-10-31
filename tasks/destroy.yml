@@ -1,0 +1,8 @@
+---
+- name: destroy the newly created droplet
+  digital_ocean:
+    state: deleted
+    command: droplet
+    id: "{{ do.droplet.id }}"
+    api_token: "{{ do_api_token }}"
+  delegate_to: localhost

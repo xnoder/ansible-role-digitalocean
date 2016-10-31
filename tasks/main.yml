@@ -1,0 +1,36 @@
+---
+- name: create a new droplet
+  digital_ocean:
+    state: present
+    command: droplet
+    name: "{{ do_droplet_name|default(false) }}"
+    unique_name: "{{ do_droplet_idempotency }}"
+    size_id: "{{ do_droplet_size }}"
+    image_id: "{{ do_droplet_image }}"
+    region_id: "{{ do_droplet_region }}"
+    ssh_key_name: "{{ do_ssh_name }}"
+    api_token: "{{ do_api_token }}"
+    private_networking: "{{ do_droplet_private_net }}"
+  register: do
+  delegate_to: localhost
+
+- debug:
+    msg: "A new droplet has been created with the IP {{ do.droplet.ip_address }} (ID: {{ do.droplet.id }})."
+
+- name: add host to in-memory inventory
+  add_host:
+    name: {{ do.droplet.ip_address }}
+    groups: {{ do_droplet_region }}
+    ansible_ssh_user: {{ do_root_user|default(root) }}
+
+# The following will install Python 2.7 on an ubuntu 16.04 droplet in preparation for future plays.
+- name: install python 2.7 on ubuntu 16.04 (Xenial)
+  raw: {{ item }}
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == 'xenial'
+  with_items:
+    - apt install -qq -y python2.7
+    - ln -s /usr/bin/python2.7 /usr/bin/python
+  delegate_to: {{ do.droplet.ip_address }}
+
+- include: destroy.yml
+  tags: [destroy]
